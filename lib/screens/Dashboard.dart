@@ -216,7 +216,7 @@ class _DashboardState extends State<Dashboard> {
                 )
               ],
             ),
-            margin: EdgeInsets.only(left: 40, right: 40, bottom: 50, top: 50),
+            margin: EdgeInsets.only(left: 40, right: 40, bottom: 2, top: 50),
             width: double.infinity,
             decoration: BoxDecoration(
               color: Colors.white,
