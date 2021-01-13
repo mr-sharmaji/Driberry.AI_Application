@@ -105,7 +105,7 @@ class _DashboardState extends State<Dashboard> {
                                         ? Text(
                                             snapshot.data[0]['heartRate']
                                                 .toString()
-                                                .substring(0, 5),
+                                                .substring(0, 5) + " bpm",
                                             style: TextStyle(
                                                 fontWeight: FontWeight.bold,
                                                 fontSize: 18),
@@ -197,6 +197,78 @@ class _DashboardState extends State<Dashboard> {
                                         fontSize: 16,
                                       ),
                                     ),
+                                ),
+                                Divider(
+                                  thickness: 2,
+                                )
+                              ],
+                            );
+                          },
+                          itemCount: snapshot.data.length,
+                        );
+                      } else {
+                        return Center(
+                          child: CircularProgressIndicator(),
+                        );
+                      }
+                    },
+                  ),
+                )
+              ],
+            ),
+            margin: EdgeInsets.only(left: 40, right: 40, bottom: 50, top: 50),
+            width: double.infinity,
+            decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.all(
+                Radius.circular(20),
+              ),
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.grey.withOpacity(0.2),
+                  spreadRadius: 5,
+                  blurRadius: 7,
+                  offset: Offset(1, 3),
+                ),
+              ],
+            ),
+          ),
+          Container(
+            child: Column(
+              children: [
+                Container(
+                  margin: EdgeInsets.only(bottom: 30, top: 20),
+                  child: Text(
+                    "Last 10 Heart Rate Records",
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 21,
+                    ),
+                  ),
+                ),
+                Container(
+                  margin: EdgeInsets.only(bottom: 20, left: 40, right: 40),
+                  child: FutureBuilder(
+                    future: _networkHelper.getHeartRateData(),
+                    builder: (context, snapshot) {
+                      if (snapshot.hasData) {
+                        return ListView.builder(
+                          physics: NeverScrollableScrollPhysics(),
+                          scrollDirection: Axis.vertical,
+                          shrinkWrap: true,
+                          itemBuilder: (context, position) {
+                            return Column(
+                              children: [
+                                Container(
+                                  padding: EdgeInsets.fromLTRB(5, 5, 5, 5),
+                                  child: Text(
+                                    snapshot.data[position]['heartRate']
+                                        .toString().substring(0,5) + " bpm",
+                                    style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 16,
+                                    ),
+                                  ),
                                 ),
                                 Divider(
                                   thickness: 2,
